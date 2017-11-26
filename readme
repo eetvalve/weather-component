@@ -1,0 +1,26 @@
+NodeJs weather forecast component
+
+Prerequisites:
+
+1. npm install
+
+2. npm start
+
+3. go to: http://localhost:8081/weatherByCity
+
+4. profit
+
+
+Project scrapes weather forecasts from ilmatieteenlaitos.fi. User can declare amout of days forecasts shown
+from 1 to 10 days, by changing config.json value.
+
+Cities can be changed by adding, or removing strings into "city" array in server.js
+
+If temperature drops below 0-celcius, it changes the status value from "Ok" = "DANGER".
+
+--------------------------------------------------------------------------------------------
+
+Other:
+
+Component is controlled with callbacks over promise, because "Request" -module needs extra module to work with
+promises.
