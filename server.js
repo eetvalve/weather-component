@@ -8,9 +8,15 @@ var app = express();
 
 var configFile = require('./config.json');
 
-function weatherComponent(callback) {
+function weatherComponent(cities, callback) {
     var data = [];
-    var city = ["turku", "helsinki", "sotkamo/vuokatti", "kolari"];
+    var city = [];
+
+    city = cities;
+
+    console.log(city);
+    console.log("toinen yrtys ylla");
+
     var dayNum = configFile.checkingPeriod;
     var info;
     var itemsProcessed = 0;
@@ -64,7 +70,8 @@ function weatherComponent(callback) {
                 itemsProcessed++;
                 data.push(temp);
 
-                if (itemsProcessed === array.length) {
+
+                if (itemsProcessed === city.length) {
                     return callback(data, false);
                 }
             }
@@ -74,17 +81,24 @@ function weatherComponent(callback) {
 
 
 app.get("/weatherByCity", function (req, res) {
-    weatherComponent(function (err, data) {
+
+    var cities = req.query.data;
+
+    weatherComponent(cities, function (err, data) {
         if (err) {
             console.log(err);
             res.send(err);
         } else {
+
+            console.log("data lahetetty");
+            console.log(data);
             res.send(data);
         }
     });
 });
 
 //update logs every minute
+/*
 setInterval(function() {
     console.log("here we go again");
         weatherComponent(function (err, data) {
@@ -95,7 +109,7 @@ setInterval(function() {
             }
         });
 }, 60 * 1000); // 60 * 1000 milsec
-
+*/
 
 
 
